@@ -1,5 +1,7 @@
 # Exam Answer Template Generator
 
+Generate a reusable answer scaffold from an exam question.
+
 ## Included interfaces
 
 - **Web app (Flask):** paste a question and generate a template in the browser.
@@ -49,11 +51,3 @@ python3 -m pytest -q
 - Full answer draft scaffold
 - Evidence and examples
 - Final submission checklist
-=======
-Tiny CLI that takes an exam question and outputs a structured answer template.
-
-## Usage
-
-```bash
-python3 exam_template.py "Explain the causes of the French Revolution."
-```
