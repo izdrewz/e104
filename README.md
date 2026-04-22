@@ -1,32 +1,24 @@
 # Exam Answer Template Generator
 
-Generate structured answer outlines from exam questions.
+Generate structured exam-answer outlines from a question using either a web app or CLI.
 
-This repo includes two interfaces:
-- **Web app (Flask):** interactive browser form for quick drafting.
-- **CLI tool:** terminal command for scriptable workflows.
-
-## Run the web app
+## Web app (Flask)
 
 ```bash
 python3 -m pip install flask
 python3 app.py
 ```
 
-Open: `http://127.0.0.1:5000`
+Open `http://127.0.0.1:5000` and paste your exam question.
 
-## Run the CLI
+## CLI
 
 ```bash
 python3 exam_template.py "Explain the causes of the French Revolution."
 ```
 
-## Example output sections
+## Run tests
 
-The generated template includes:
-1. Task restatement
-2. Key concepts / definitions
-3. Step-by-step response plan
-4. Full answer draft scaffold
-5. Evidence / examples
-6. Final submission checklist
+```bash
+python3 -m pytest -q
+```

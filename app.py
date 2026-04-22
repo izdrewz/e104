@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Web app for generating exam answer templates."""
+"""Flask app for generating exam answer templates."""
 
 from __future__ import annotations
 
@@ -7,9 +7,11 @@ from flask import Flask, render_template_string, request
 
 from exam_template import build_template
 
-app = Flask(__name__)
 
-PAGE = """
+def create_app() -> Flask:
+    app = Flask(__name__)
+
+    page = """
 <!doctype html>
 <html lang="en">
   <head>
@@ -17,8 +19,8 @@ PAGE = """
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Exam Answer Template Generator</title>
     <style>
-      body { font-family: Arial, sans-serif; margin: 2rem; max-width: 900px; }
-      textarea { width: 100%; min-height: 120px; margin-bottom: 1rem; }
+      body { font-family: Arial, sans-serif; margin: 2rem auto; max-width: 900px; line-height: 1.4; }
+      textarea { width: 100%; min-height: 120px; margin: 0.5rem 0 1rem; }
       button { padding: 0.6rem 1rem; }
       pre { white-space: pre-wrap; background: #f5f5f5; padding: 1rem; border-radius: 8px; }
     </style>
@@ -28,7 +30,6 @@ PAGE = """
     <form method="post">
       <label for="question"><strong>Exam question</strong></label>
       <textarea id="question" name="question" placeholder="Type your exam question here...">{{ question }}</textarea>
-      <br />
       <button type="submit">Generate template</button>
     </form>
 
@@ -40,19 +41,20 @@ PAGE = """
 </html>
 """
 
+    @app.route("/", methods=["GET", "POST"])
+    def index() -> str:
+        question = ""
+        output = ""
 
-@app.route("/", methods=["GET", "POST"])
-def index() -> str:
-    question = ""
-    output = ""
+        if request.method == "POST":
+            question = request.form.get("question", "").strip()
+            if question:
+                output = build_template(question)
 
-    if request.method == "POST":
-        question = request.form.get("question", "").strip()
-        if question:
-            output = build_template(question)
+        return render_template_string(page, question=question, output=output)
 
-    return render_template_string(PAGE, question=question, output=output)
+    return app
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    create_app().run(debug=True)
