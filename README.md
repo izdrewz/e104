@@ -29,6 +29,14 @@ Open `http://127.0.0.1:5000`.
 python3 exam_template.py "Explain the causes of the French Revolution."
 ```
 
+## CLI usage details
+
+Tiny CLI that takes an exam question and outputs a structured answer template.
+
+```bash
+python3 exam_template.py "Discuss photosynthesis in plants."
+```
+
 ### Run tests
 
 ```bash
